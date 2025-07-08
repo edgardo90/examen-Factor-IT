@@ -16,6 +16,11 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
+      <div className="min-h-10 max-w-6xl flex justify-center items-center bg-gray-100">
+        <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-2xl active:scale-75" type='button' onClick={(e)=>console.log(e.target)}>
+          Botón Tailwind
+        </button>
+      </div>
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
