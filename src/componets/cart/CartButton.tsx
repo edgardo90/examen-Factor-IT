@@ -54,13 +54,17 @@ export const CartButton = () => {
         <Box sx={{ width: 400 }} role="presentation">
             <DrawerHeader>
                 <span>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    </IconButton>
+                    <abbr title="Cerrar">
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        </IconButton>
+                    </abbr>
                     Mi carrito
-                    <IconButton type='button' onClick={()=>console.log("clicl")}>
-                        <Delete color='error'  />
-                    </IconButton>
+                    <abbr title="Eleminar carrito">
+                        <IconButton type='button' onClick={() => console.log("clicl")}>
+                            <Delete color='error' />
+                        </IconButton>
+                    </abbr>
                 </span>
             </DrawerHeader>
             <List>
