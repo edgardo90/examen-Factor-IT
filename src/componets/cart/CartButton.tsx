@@ -17,6 +17,7 @@ import MailIcon from '@mui/icons-material/Mail';
 ///
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Delete } from '@mui/icons-material'
 
 const CartBadge = styled(Badge)`
   & .${badgeClasses.badge} {
@@ -50,13 +51,20 @@ export const CartButton = () => {
 
 
     const DrawerList = (
-        <Box sx={{ width: 400 }} role="presentation" onClick={toggleDrawer(false)}>
+        <Box sx={{ width: 400 }} role="presentation">
             <DrawerHeader>
                 <span>
+                    <abbr title="Cerrar">
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        </IconButton>
+                    </abbr>
                     Mi carrito
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronLeftIcon  /> : <ChevronRightIcon />}
-                    </IconButton>
+                    <abbr title="Eleminar carrito">
+                        <IconButton type='button' onClick={() => console.log("clicl")}>
+                            <Delete color='error' />
+                        </IconButton>
+                    </abbr>
                 </span>
             </DrawerHeader>
             <List>
