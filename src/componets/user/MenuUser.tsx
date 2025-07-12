@@ -18,6 +18,10 @@ import EventIcon from '@mui/icons-material/Event';
 import { specialDates } from '../../data/specialDates'
 //
 import { clearLocalStorage } from '../../utils/userLocalStorge';
+//
+import { useDispatch, useSelector } from 'react-redux'
+import type { RootState, } from '../../redux/store';
+import { SET_CART } from '../../redux/cart/cartSlice'
 
 interface MenuUserProps {
     anchorEl: HTMLElement | null;
@@ -33,11 +37,21 @@ export const MenuUser: FC<MenuUserProps> = ({
     open
 }) => {
 
+    const cartState = useSelector((state: RootState) => state.cart)
+    const dispatch = useDispatch()
+
     const [selectedDate, setSelectedDate] = useState('');
 
     const handleDateChange = (date: string) => {
         setSelectedDate(date)
     };
+
+    const handleLogout = () => {
+        dispatch(
+            SET_CART()
+        )
+        clearLocalStorage()
+    }
 
     return (
         <>
@@ -129,7 +143,7 @@ export const MenuUser: FC<MenuUserProps> = ({
                     </FormControl>
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={() => clearLocalStorage()}>
+                <MenuItem onClick={() => handleLogout()}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>

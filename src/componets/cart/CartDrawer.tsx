@@ -15,6 +15,11 @@ import MailIcon from '@mui/icons-material/Mail';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Delete } from '@mui/icons-material';
+//
+import { useSelector, useDispatch } from 'react-redux'
+import type { RootState } from '../../redux/store'
+import { SET_CART } from '../../redux/cart/cartSlice'
+
 
 
 interface CartDrawerProps {
@@ -34,6 +39,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
     const theme = useTheme();
 
+    const cartState = useSelector((state: RootState) => state.cart)
+    const dispatch = useDispatch()
+
+    const handleDeleteCart = () =>{
+        dispatch(
+            SET_CART()
+        )
+    }
+
     return (
         <Box sx={{ width: 400 }} role="presentation">
             <DrawerHeader>
@@ -45,12 +59,13 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
                     </abbr>
                     Mi carrito
                     <abbr title="Eleminar carrito">
-                        <IconButton type='button' onClick={() => console.log("clicl")}>
+                        <IconButton type='button' onClick={() => handleDeleteCart()}>
                             <Delete color='error' />
                         </IconButton>
                     </abbr>
                 </span>
             </DrawerHeader>
+            <Divider />
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem key={text} disablePadding>
