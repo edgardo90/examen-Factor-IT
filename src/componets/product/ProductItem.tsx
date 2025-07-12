@@ -7,7 +7,7 @@ import { getUserLocalStorage } from '../../utils/userLocalStorge';
 //
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../redux/store';
-import { ADD_PRODUCT_TO_CART } from '../../redux/cart/cartSlice'
+import { ADD_PRODUCT_TO_CART ,SUM_QUANTITY_PRODUCT, SUBTRACT_QUANTITY_PRODUCT } from '../../redux/cart/cartSlice'
 import type { IPurchasedProduct } from '../../interfaces/product'
 
 
@@ -35,7 +35,7 @@ export const ProductItem: FC<ProductItemProps> = ({ product }) => {
     }
 
     useEffect(() => {
-        console.log(cartState.products)
+        // console.log(cartState.products)
         const findPurchasedProduct = cartState.products.find(el => el.id === product.id);
         if (!findPurchasedProduct) {
             setPurchasedProduct(null)
@@ -71,14 +71,14 @@ export const ProductItem: FC<ProductItemProps> = ({ product }) => {
                         purchasedProduct ? (
                             <div className="flex items-center justify-between">
                                 <button
-                                    // onClick={() => }
+                                    onClick={() => dispatch(SUBTRACT_QUANTITY_PRODUCT(product.id)) }
                                     className="bg-red-500 hover:bg-red-700 w-10 text-white px-3 py-1 rounded-md cursor-pointer transition-all duration-200 active:scale-90"
                                 >
                                     -
                                 </button>
                                 <span className="mx-2">{`${purchasedProduct.quantity} unidad${purchasedProduct.quantity > 1 ? 's' : ''}`}</span>
                                 <button
-                                    // onClick={() => }
+                                    onClick={() => dispatch( SUM_QUANTITY_PRODUCT(product.id)) }
                                     className="bg-blue-500  w-10 hover:bg-blue-700 text-white px-3 py-1 rounded-md cursor-pointer transition-all duration-200 active:scale-90"
                                 >
                                     +
