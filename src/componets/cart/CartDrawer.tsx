@@ -15,6 +15,10 @@ import MailIcon from '@mui/icons-material/Mail';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Delete } from '@mui/icons-material';
+//
+import { useSelector, useDispatch } from 'react-redux'
+import type { RootState } from '../../redux/store'
+
 
 
 interface CartDrawerProps {
@@ -34,6 +38,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
     const theme = useTheme();
 
+    const cartState = useSelector((state: RootState) => state.cart)
+    const dispatch = useDispatch()
+
     return (
         <Box sx={{ width: 400 }} role="presentation">
             <DrawerHeader>
@@ -51,6 +58,7 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
                     </abbr>
                 </span>
             </DrawerHeader>
+            <Divider />
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem key={text} disablePadding>

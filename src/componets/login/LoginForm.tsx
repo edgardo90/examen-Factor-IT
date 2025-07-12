@@ -2,9 +2,15 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { users } from '../../data/users'
 import { useNavigate } from 'react-router-dom';
-import { saveUserLocalStorage } from '../../utils/userLocalStorge'
+import { saveUserLocalStorage } from '../../utils/userLocalStorge';
+import type { FC } from 'react'
 
-export const LoginForm = () => {
+interface LoginFormProps {
+    setOpen?: (open: boolean) => void
+
+}
+
+export const LoginForm: FC<LoginFormProps> = ({ setOpen }) => {
     const navigate = useNavigate()
 
     const [error, setError] = useState('');
@@ -42,6 +48,9 @@ export const LoginForm = () => {
             setTimeout(() => {
                 alert("Ingreso exitoso!")
                 navigate('/')
+                if (setOpen) {
+                    setOpen(false)
+                }
             }, 400)
         } catch (error: any) {
             console.log({ error })

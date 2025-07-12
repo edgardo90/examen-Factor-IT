@@ -6,6 +6,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Drawer from '@mui/material/Drawer';
 //
 import { CartDrawer } from './CartDrawer';
+import { useSelector, useDispatch } from 'react-redux'
+import type { RootState } from '../../redux/store'
 
 
 const CartBadge = styled(Badge)`
@@ -15,6 +17,9 @@ const CartBadge = styled(Badge)`
   }`;
 
 export const CartButton = () => {
+
+    const cartState = useSelector((state: RootState) => state.cart)
+    const dispatch = useDispatch()
 
     const [open, setOpen] = useState(false);
 
@@ -35,7 +40,7 @@ export const CartButton = () => {
             </Drawer>
             <IconButton onClick={toggleDrawer(true)}>
                 <ShoppingCartIcon fontSize="medium" color='warning' />
-                <CartBadge badgeContent={1} color="primary" overlap="circular" />
+                <CartBadge badgeContent={cartState.products.length} color="primary" overlap="circular" />
             </IconButton>
         </>
     )
