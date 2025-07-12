@@ -6,11 +6,9 @@ import { ProductList } from '../../componets/product/ProductList'
 
 export const Home = () => {
     return (
-        <>
-            <div className=''>
-                <ProductList />
-            </div>
-        </>
+        <div className='mb-16'>
+            <ProductList />
+        </div>
     )
     // const count = useSelector((state: RootState) => state.counter)
     // const dispatch = useDispatch()
