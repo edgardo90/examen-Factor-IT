@@ -3,23 +3,36 @@ import { createBrowserRouter } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
 import { Home } from '../pages/home/Home';
 import { NotFound } from '../pages/NotFound';
-import { MainLayout } from '../componets/GeneralLayout'
+import { GeneralLayout } from '../componets/GeneralLayout'
+import { Login } from '../pages/login/Login'
 
 const routesConfig: RouteObject[] = [
     {
         path: '/',
-        element: <MainLayout />,
+        element: <GeneralLayout />,
         children: [
             { path: '/', element: <Home /> },
         ],
     },
-    // {
-    //     path: '/',
-    //     element: <Home />,
-    // },
+    {
+        path: '/login',
+        element: <GeneralLayout />,
+        children: [
+            {
+                path: '/login',
+                element: <Login />,
+            }
+        ]
+    },
     {
         path: '*',
-        element: <NotFound />
+        element: <GeneralLayout />,
+        children: [
+            {
+                path: '*',
+                element: <NotFound />
+            },
+        ],
     }
 ]
 

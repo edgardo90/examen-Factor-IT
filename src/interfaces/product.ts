@@ -5,3 +5,6 @@ export interface IProduct {
     description?: string;
     imageUrl: string[]
 }
+export interface IPurchasedProduct extends IProduct {
+    quantity: number
+}
