@@ -6,6 +6,7 @@ import { NotFound } from '../pages/NotFound';
 import { GeneralLayout } from '../componets/GeneralLayout'
 import { Login } from '../pages/login/Login'
 import { MyPurchases } from '../pages/user/MyPurchases';
+import { MyProfile } from '../pages/user/MyProfile';
 
 const routesConfig: RouteObject[] = [
     {
@@ -30,6 +31,7 @@ const routesConfig: RouteObject[] = [
         element: <GeneralLayout />,
         children: [
             { path: '/user/mypurchases', element: <MyPurchases /> },
+            { path: '/user/myprofile', element: <MyProfile /> },
         ],
     },
     {

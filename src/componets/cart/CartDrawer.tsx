@@ -70,6 +70,9 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
         products: cartState.products,
       };
       user?.purchases.unshift(purchase);
+      if (user && cartState.totalCost > 10000) {
+        user.isVip = true;
+      }
       if (user) {
         saveUserLocalStorage(user);
       }
@@ -101,13 +104,13 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
             </IconButton>
           </abbr>
           <span className="text-xs">
-            {`Mi carrito${
-              cartState.specialDay && cartState.specialDay !== "Normal"
-                ? `, Descuento por ${cartState.specialDay} `
-                : ""
-            } 
-          (${cartState.totalProducts} productos)
-          `}
+            {`Mi carrito (${cartState.totalProducts} productos).`}
+            <span>
+              {`${ cartState.specialDay && cartState.specialDay !== "Normal"? `, Descuento por ${cartState.specialDay} `: ""}`}
+            </span>
+            <span className="text-yellow-400 font-black">
+              {(!cartState.specialDay || cartState.specialDay === 'Normal') && getUserLocalStorage()?.isVip ? "VIP" : ""  }
+            </span>
           </span>
           <abbr title="Eleminar carrito">
             <IconButton type="button" onClick={() => handleDeleteCart()}>

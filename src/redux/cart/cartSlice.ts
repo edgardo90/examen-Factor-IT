@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { IPurchasedProduct, IProduct } from '../../interfaces/product'
 import { current } from '@reduxjs/toolkit';
-import type {SpecialDate} from '../../data/specialDates'
+import { getUserLocalStorage } from '../../utils/userLocalStorge'
 
 interface ICartState {
     products: IPurchasedProduct[];
@@ -72,8 +72,9 @@ export const cartSlice = createSlice({
         },
         TOTAL_COST_TO_CART: (state) => {
             let discount = 0;
-            //descuento Si se compran exactamente 4 productos
             const subtotalCost = state.subtotalCost;
+            state.products.sort((a, b) => a.price - b.price)
+            //descuento Si se compran exactamente 4 productos
             if (state.totalProducts === 4) {
                 const generalDiscount = (25 * state.subtotalCost) / 100;
                 discount += generalDiscount;
@@ -83,8 +84,15 @@ export const cartSlice = createSlice({
                 discount += 100;
             }
             //descuento si es por fecha especial
-            if(state.specialDay && state.specialDay !== 'Normal'){
-                discount += 300
+            if (state.specialDay && state.specialDay !== 'Normal') {
+                discount += 300;
+            }
+            //descuento si es el usuario es VIP
+            const user = getUserLocalStorage();
+            if ((user && user.isVip) && (!state.specialDay || state.specialDay === 'Normal')) {
+                discount += 500;
+                const bonusProduct = state.products[0];
+                discount = state.totalProducts > 1 ? discount + bonusProduct.price : discount + 0 
             }
             state.discount = discount;
             state.totalCost = subtotalCost - discount;

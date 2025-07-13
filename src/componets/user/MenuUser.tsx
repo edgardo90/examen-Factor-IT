@@ -107,7 +107,7 @@ export const MenuUser: FC<MenuUserProps> = ({
             >
                 <MenuItem onClick={(e) => {
                     e.stopPropagation();
-                    console.log("Perfil")
+                    navigate('/user/myprofile');
                 }}>
                     <Avatar /> Perfil
                 </MenuItem>
@@ -116,7 +116,8 @@ export const MenuUser: FC<MenuUserProps> = ({
                     console.log(getUserLocalStorage());
                     navigate('/user/mypurchases')
                 }}>
-                    <ShoppingCartCheckoutTwoToneIcon className='mr-2' /> Mis Compras
+                    <ShoppingCartCheckoutTwoToneIcon className='mr-2' /> 
+                    Mis Compras
                 </MenuItem>
                 <Divider />
                 <MenuItem>
@@ -131,7 +132,6 @@ export const MenuUser: FC<MenuUserProps> = ({
                             label="Fecha especial"
                             onChange={(e) => handleDateChange(e.target.value)}
                             onClick={(e) => {
-                                // e.preventDefault();
                                 e.stopPropagation();// Evito que el menú se cierre
                             }}
                         >

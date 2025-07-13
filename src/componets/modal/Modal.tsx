@@ -25,7 +25,8 @@ export const ModalComponent: FC<ModalComponentProps> = ({
 		maxHeight: '90vh',
 		overflow: 'auto',
 		bgcolor: 'background.paper',
-		boxShadow: 2
+		boxShadow: 2,
+		minWidth: '330px'
 	}
 
 	return (
