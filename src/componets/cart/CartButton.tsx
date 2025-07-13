@@ -8,6 +8,10 @@ import Drawer from '@mui/material/Drawer';
 import { CartDrawer } from './CartDrawer';
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../../redux/store'
+//
+import { getUserLocalStorage } from '../../utils/userLocalStorge';
+import { LoginFormModal } from '../login/LoginFormModal';
+
 
 
 const CartBadge = styled(Badge)`
@@ -23,7 +27,13 @@ export const CartButton = () => {
 
     const [open, setOpen] = useState(false);
 
+    const [openModal, setOpenModal] = useState(false);
+
     const toggleDrawer = (newOpen: boolean) => () => {
+        if (!getUserLocalStorage()) {
+            setOpenModal(true)
+            return
+        }
         setOpen(newOpen);
     };
 
@@ -35,6 +45,7 @@ export const CartButton = () => {
 
     return (
         <>
+            <LoginFormModal open={openModal} setOpen={setOpenModal} /> 
             <Drawer anchor='right' open={open} onClose={toggleDrawer(false)}>
                 <CartDrawer handleDrawerClose={handleDrawerClose} />
             </Drawer>
