@@ -1,6 +1,5 @@
 import { getUserLocalStorage } from "../../utils/userLocalStorge";
 import { Link } from "react-router-dom";
-import { formatMoney } from "../../utils/formatMoney";
 import { PurchaseItem } from "../../componets/user/PurchaseItem";
 
 export const MyPurchases = () => {
@@ -18,9 +17,11 @@ export const MyPurchases = () => {
       </div>
       {/* asa se muesta el  Listado de compras */}
       <div className="space-y-4">
-        {user?.purchases?.map((purchase) => (
+        {user?.purchases && user?.purchases.length > 0 ? user?.purchases?.map((purchase) => (
           <PurchaseItem purchase={purchase} key={purchase.id} />
-        ))}
+        ))
+        : <h1>No tienes compras realizadas</h1>
+        }
       </div>
     </div>
   );
