@@ -16,11 +16,12 @@ import InputLabel from '@mui/material/InputLabel';
 import EventIcon from '@mui/icons-material/Event';
 import { specialDates } from '../../data/specialDates'
 //
-import { clearLocalStorage } from '../../utils/userLocalStorge';
+import { clearLocalStorage , getUserLocalStorage } from '../../utils/userLocalStorge';
 //
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState, } from '../../redux/store';
-import { SET_CART, UPDATE_SPECIAL_DAY_TO_CART } from '../../redux/cart/cartSlice'
+import { SET_CART, UPDATE_SPECIAL_DAY_TO_CART } from '../../redux/cart/cartSlice';
+import {useLocation , useNavigate} from 'react-router-dom';
 
 interface MenuUserProps {
     anchorEl: HTMLElement | null;
@@ -36,6 +37,8 @@ export const MenuUser: FC<MenuUserProps> = ({
     open
 }) => {
 
+    const navigate = useNavigate();
+
     const cartState = useSelector((state: RootState) => state.cart)
     const dispatch = useDispatch()
 
@@ -48,6 +51,7 @@ export const MenuUser: FC<MenuUserProps> = ({
             SET_CART()
         );
         clearLocalStorage();
+        navigate('/')
     }
 
     return (
@@ -59,7 +63,6 @@ export const MenuUser: FC<MenuUserProps> = ({
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-
                         <AccountCircle fontSize="small" className="mr-1 mb-1" />
                         Mi Cuenta
                     </div>
@@ -109,8 +112,9 @@ export const MenuUser: FC<MenuUserProps> = ({
                     <Avatar /> Perfil
                 </MenuItem>
                 <MenuItem onClick={(e) => {
-                    console.log("mis compras")
-                    e.stopPropagation();
+                    // e.stopPropagation();
+                    console.log(getUserLocalStorage());
+                    navigate('/user/mypurchases')
                 }}>
                     <ShoppingCartCheckoutTwoToneIcon className='mr-2' /> Mis Compras
                 </MenuItem>
