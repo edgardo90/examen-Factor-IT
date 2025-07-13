@@ -7,7 +7,6 @@ export const MyPurchases = () => {
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
-      {/* Encabezado con botón de regreso */}
         <Link to='/'>
           <span className="text-blue-600 hover:text-blue-800 cursor-pointer">
             Regresar a productos
@@ -16,8 +15,7 @@ export const MyPurchases = () => {
       <div className="flex justify-between items-center mb-6 mt-4">
         <h1 className="text-2xl font-bold">Mis Compras</h1>
       </div>
-
-      {/* Listado de compras */}
+      {/* asa se muesta el  Listado de compras */}
       <div className="space-y-4">
         {user?.purchases?.map((purchase) => (
           <div
@@ -33,8 +31,7 @@ export const MyPurchases = () => {
                 {formatMoney(purchase.totalAmount)}
               </span>
             </div>
-
-            {/* Productos comprados */}
+            {/* aca muestro los productos comprados */}
             <div className="mt-3 border-t pt-3">
               <h4 className="font-medium mb-2">Productos:</h4>
               <ul className="space-y-2">

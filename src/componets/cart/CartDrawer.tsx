@@ -75,7 +75,6 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
       }
       setTimeout(() => {
         setLoading(false);
-        // console.log({ user, cartState, purchase });
         alert("Se finalizo la compra con exito");
         dispatch(SET_CART());
         handleDrawerClose();
