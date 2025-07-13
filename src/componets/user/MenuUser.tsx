@@ -10,7 +10,6 @@ import Logout from '@mui/icons-material/Logout';
 import { AccountCircle } from '@mui/icons-material';
 import ShoppingCartCheckoutTwoToneIcon from '@mui/icons-material/ShoppingCartCheckoutTwoTone';
 //
-import { useState } from 'react';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -40,10 +39,7 @@ export const MenuUser: FC<MenuUserProps> = ({
     const cartState = useSelector((state: RootState) => state.cart)
     const dispatch = useDispatch()
 
-    const [selectedDate, setSelectedDate] = useState('');
-
     const handleDateChange = (date: 'Normal' | 'Reyes Magos' | 'Día del Niño' | 'Cyber Monday' | 'Navidad' | '') => {
-        // setSelectedDate(date)
         dispatch(UPDATE_SPECIAL_DAY_TO_CART(date ));
     }
 
