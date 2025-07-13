@@ -3,25 +3,26 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { IPurchasedProduct, IProduct } from '../../interfaces/product'
 import { current } from '@reduxjs/toolkit';
+import type {SpecialDate} from '../../data/specialDates'
 
 interface ICartState {
     products: IPurchasedProduct[];
     isVip: boolean;
-    isSpecialDay: boolean;
     totalCost: number;
     totalProducts: number;
     discount: number;
     subtotalCost: number;
+    specialDay: 'Normal' | 'Reyes Magos' | 'Día del Niño' | 'Cyber Monday' | 'Navidad' | ''
 }
 
 const initialState: ICartState = {
     products: [],
     isVip: false,
-    isSpecialDay: false,
     totalCost: 0,
     totalProducts: 0,
     discount: 0,
-    subtotalCost: 0
+    subtotalCost: 0,
+    specialDay: ''
 }
 
 export const cartSlice = createSlice({
@@ -29,13 +30,13 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         SET_CART: (state) => {
-            state.isSpecialDay = false;
             state.isVip = false;
             state.products = [];
             state.totalCost = 0;
             state.totalProducts = 0;
             state.subtotalCost = 0;
-            state.discount = 0
+            state.discount = 0;
+            state.specialDay = ''
         },
         ADD_PRODUCT_TO_CART: (state, action: PayloadAction<IProduct>) => {
             const purchasedProduct = {
@@ -81,6 +82,10 @@ export const cartSlice = createSlice({
             if (state.totalProducts > 10) {
                 discount += 100;
             }
+            //descuento si es por fecha especial
+            if(state.specialDay && state.specialDay !== 'Normal'){
+                discount += 300
+            }
             state.discount = discount;
             state.totalCost = subtotalCost - discount;
         },
@@ -93,6 +98,10 @@ export const cartSlice = createSlice({
                 state.subtotalCost -= findProduct.quantity * findProduct.price;
                 state.products = state.products.filter(el => el.id !== findProduct.id);
             }
+        },
+        UPDATE_SPECIAL_DAY_TO_CART: (state, action: PayloadAction<'Normal' | 'Reyes Magos' | 'Día del Niño' | 'Cyber Monday' | 'Navidad' | ''>) => {
+            const specialDay = action.payload;
+            state.specialDay = specialDay;
         }
     }
 })
@@ -103,7 +112,8 @@ export const {
     SUM_QUANTITY_PRODUCT,
     SUBTRACT_QUANTITY_PRODUCT,
     TOTAL_COST_TO_CART,
-    DELETE_PRODUCT_TO_CART
+    DELETE_PRODUCT_TO_CART,
+    UPDATE_SPECIAL_DAY_TO_CART
 } = cartSlice.actions;
 
 export default cartSlice.reducer
