@@ -34,7 +34,7 @@ export const Header = () => {
                 </div>
                 {/* <button type='button' onClick={() => console.log(getUserLocalStorage())}>consola user</button> */}
                 {
-                    location.pathname === "/" &&
+                    (location.pathname === "/" || location.pathname.includes('user') ) && 
                     <nav className="flex space-x-4">
                         {
                             !getUserLocalStorage() ?
