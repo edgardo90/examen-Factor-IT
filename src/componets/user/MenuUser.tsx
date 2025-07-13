@@ -10,7 +10,6 @@ import Logout from '@mui/icons-material/Logout';
 import { AccountCircle } from '@mui/icons-material';
 import ShoppingCartCheckoutTwoToneIcon from '@mui/icons-material/ShoppingCartCheckoutTwoTone';
 //
-import { useState } from 'react';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -21,7 +20,7 @@ import { clearLocalStorage } from '../../utils/userLocalStorge';
 //
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState, } from '../../redux/store';
-import { SET_CART } from '../../redux/cart/cartSlice'
+import { SET_CART, UPDATE_SPECIAL_DAY_TO_CART } from '../../redux/cart/cartSlice'
 
 interface MenuUserProps {
     anchorEl: HTMLElement | null;
@@ -40,17 +39,15 @@ export const MenuUser: FC<MenuUserProps> = ({
     const cartState = useSelector((state: RootState) => state.cart)
     const dispatch = useDispatch()
 
-    const [selectedDate, setSelectedDate] = useState('');
-
-    const handleDateChange = (date: string) => {
-        setSelectedDate(date)
-    };
+    const handleDateChange = (date: 'Normal' | 'Reyes Magos' | 'Día del Niño' | 'Cyber Monday' | 'Navidad' | '') => {
+        dispatch(UPDATE_SPECIAL_DAY_TO_CART(date ));
+    }
 
     const handleLogout = () => {
         dispatch(
             SET_CART()
-        )
-        clearLocalStorage()
+        );
+        clearLocalStorage();
     }
 
     return (
@@ -126,12 +123,12 @@ export const MenuUser: FC<MenuUserProps> = ({
                         <InputLabel id="date-select-label">Fecha especial</InputLabel>
                         <Select
                             labelId="date-select-label"
-                            value={selectedDate}
+                            value={cartState.specialDay}
                             label="Fecha especial"
                             onChange={(e) => handleDateChange(e.target.value)}
                             onClick={(e) => {
-                                // e.preventDefault(); // Evito que el menú se cierre
-                                e.stopPropagation();
+                                // e.preventDefault();
+                                e.stopPropagation();// Evito que el menú se cierre
                             }}
                         >
                             {specialDates.map((date) => (

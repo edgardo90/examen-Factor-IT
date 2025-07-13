@@ -6,3 +6,5 @@ export const specialDates = [
     'Cyber Monday',
     'Navidad'
 ]
+
+export type SpecialDate = typeof specialDates[number];

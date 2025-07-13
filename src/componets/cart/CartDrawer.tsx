@@ -59,7 +59,15 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
               )}
             </IconButton>
           </abbr>
-          {`Mi carrito (${cartState.totalProducts} productos)`}
+          <span className="text-xs">
+            {`Mi carrito${
+              cartState.specialDay && cartState.specialDay !== "Normal"
+                ? `, Descuento por ${cartState.specialDay} `
+                : ""
+            } 
+          (${cartState.totalProducts} productos)
+          `}
+          </span>
           <abbr title="Eleminar carrito">
             <IconButton type="button" onClick={() => handleDeleteCart()}>
               <Delete color="error" />
@@ -102,5 +110,5 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
         </button>
       </div>
     </Box>
-  )
-}
+  );
+};
