@@ -10,8 +10,8 @@ interface ICartState {
     isSpecialDay: boolean;
     totalCost: number;
     totalProducts: number;
-    discount:number;
-    subtotalCost:number;
+    discount: number;
+    subtotalCost: number;
 }
 
 const initialState: ICartState = {
@@ -20,8 +20,8 @@ const initialState: ICartState = {
     isSpecialDay: false,
     totalCost: 0,
     totalProducts: 0,
-    discount:0,
-    subtotalCost:0
+    discount: 0,
+    subtotalCost: 0
 }
 
 export const cartSlice = createSlice({
@@ -68,6 +68,31 @@ export const cartSlice = createSlice({
                 state.totalProducts--
                 state.subtotalCost -= findProduct.price
             }
+        },
+        TOTAL_COST_TO_CART: (state) => {
+            let discount = 0;
+            //descuento Si se compran exactamente 4 productos
+            const subtotalCost = state.subtotalCost;
+            if (state.totalProducts === 4) {
+                const generalDiscount = (25 * state.subtotalCost) / 100;
+                discount += generalDiscount;
+            }
+            //descuento Si se compran mas de 10 productos
+            if (state.totalProducts > 10) {
+                discount += 100;
+            }
+            state.discount = discount;
+            state.totalCost = subtotalCost - discount;
+        },
+        DELETE_PRODUCT_TO_CART: (state, action: PayloadAction<number>) => {
+            const copyProducts: IPurchasedProduct[] = JSON.parse(JSON.stringify(state.products)); // creo una copia profunda 
+            const idProduct = action.payload;
+            const findProduct = copyProducts.find(el => el.id === idProduct);
+            if (findProduct) {
+                state.totalProducts -= findProduct.quantity;
+                state.subtotalCost -= findProduct.quantity * findProduct.price;
+                state.products = state.products.filter(el => el.id !== findProduct.id);
+            }
         }
     }
 })
@@ -76,7 +101,9 @@ export const {
     SET_CART,
     ADD_PRODUCT_TO_CART,
     SUM_QUANTITY_PRODUCT,
-    SUBTRACT_QUANTITY_PRODUCT
+    SUBTRACT_QUANTITY_PRODUCT,
+    TOTAL_COST_TO_CART,
+    DELETE_PRODUCT_TO_CART
 } = cartSlice.actions;
 
 export default cartSlice.reducer

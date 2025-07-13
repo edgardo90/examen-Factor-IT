@@ -12,10 +12,11 @@ import { Delete } from "@mui/icons-material";
 //
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../redux/store";
-import { SET_CART } from "../../redux/cart/cartSlice";
+import { SET_CART, TOTAL_COST_TO_CART } from "../../redux/cart/cartSlice";
 //
 import { PurchaseProductItem } from "./PurchaseProductItem";
 import { formatMoney } from "../../utils/formatMoney";
+import { useEffect } from "react";
 
 interface CartDrawerProps {
   handleDrawerClose: () => void;
@@ -39,6 +40,11 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
   const handleDeleteCart = () => {
     dispatch(SET_CART());
   };
+
+  useEffect(() => {
+    console.log("usefect en CartDrawer ");
+    dispatch(TOTAL_COST_TO_CART());
+  }, [cartState.products]);
 
   return (
     <Box sx={{ width: 400 }} role="presentation">
@@ -78,6 +84,15 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
         <span className="font-bold">{formatMoney(cartState.subtotalCost)}</span>
       </div>
       <Divider />
+      <div className="px-4 py-2 font-medium flex justify-between items-center">
+        <span>Descuentos</span>
+        <span className="font-bold">-{formatMoney(cartState.discount)}</span>
+      </div>
+      <Divider />
+      <div className="px-4 py-2 font-medium flex justify-between items-center">
+        <span>Total</span>
+        <span className="font-bold">{formatMoney(cartState.totalCost)}</span>
+      </div>
       <div className="px-4 mt-2">
         <button
           type="button"
@@ -87,5 +102,5 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
         </button>
       </div>
     </Box>
-  );
-};
+  )
+}

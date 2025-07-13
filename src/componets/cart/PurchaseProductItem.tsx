@@ -5,7 +5,7 @@ import type { IPurchasedProduct } from "../../interfaces/product";
 import { formatMoney } from "../../utils/formatMoney";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
-import { SUM_QUANTITY_PRODUCT ,SUBTRACT_QUANTITY_PRODUCT } from '../../redux/cart/cartSlice'
+import { SUM_QUANTITY_PRODUCT ,SUBTRACT_QUANTITY_PRODUCT, DELETE_PRODUCT_TO_CART } from '../../redux/cart/cartSlice'
 
 
 interface PurchaseProductItemProps {
@@ -26,6 +26,7 @@ export const PurchaseProductItem: FC<PurchaseProductItemProps> = ({ product}) =>
         />
         <IconButton
           className="absolute top-[-90px] w-4 h-4  left-16 bg-white shadow"
+          onClick={()=>dispatch(DELETE_PRODUCT_TO_CART(product.id))}
         >
           <Close fontSize="small" />
         </IconButton>
