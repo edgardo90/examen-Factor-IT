@@ -23,7 +23,7 @@ import {
   saveUserLocalStorage,
 } from "../../utils/userLocalStorge";
 import type { IPurchase } from "../../interfaces/purchase";
-import {useLocation , useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 interface CartDrawerProps {
   handleDrawerClose: () => void;
@@ -42,7 +42,6 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
   const theme = useTheme();
 
   const navigate = useNavigate();
-  const location = useLocation()
 
   const [loading, setLoading] = useState(false);
 
@@ -71,25 +70,23 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
         products: cartState.products,
       };
       user?.purchases.unshift(purchase);
-      if(user){
-        saveUserLocalStorage(user)
+      if (user) {
+        saveUserLocalStorage(user);
       }
       setTimeout(() => {
         setLoading(false);
         // console.log({ user, cartState, purchase });
         alert("Se finalizo la compra con exito");
         dispatch(SET_CART());
-        handleDrawerClose()
-        // if(location.pathname !== "/"){
-          navigate('/');
-        // }
+        handleDrawerClose();
+        navigate("/");
       }, 800);
     } catch (error: any) {
       console.log({ error });
       alert(error.message);
       setLoading(false);
     }
-  }
+  };
 
   return (
     <Box sx={{ width: 400 }} role="presentation">
