@@ -1,96 +1,91 @@
-import type { FC } from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
+import type { FC } from "react";
+import { styled, useTheme } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
 ///
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
 ////
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Delete } from '@mui/icons-material';
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Delete } from "@mui/icons-material";
 //
-import { useSelector, useDispatch } from 'react-redux'
-import type { RootState } from '../../redux/store'
-import { SET_CART } from '../../redux/cart/cartSlice'
-
-
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "../../redux/store";
+import { SET_CART } from "../../redux/cart/cartSlice";
+//
+import { PurchaseProductItem } from "./PurchaseProductItem";
+import { formatMoney } from "../../utils/formatMoney";
 
 interface CartDrawerProps {
-    handleDrawerClose: () => void
+  handleDrawerClose: () => void;
 }
 
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-start",
 }));
 
 export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
-    const theme = useTheme();
+  const theme = useTheme();
 
-    const cartState = useSelector((state: RootState) => state.cart)
-    const dispatch = useDispatch()
+  const cartState = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
 
-    const handleDeleteCart = () =>{
-        dispatch(
-            SET_CART()
-        )
-    }
+  const handleDeleteCart = () => {
+    dispatch(SET_CART());
+  };
 
-    return (
-        <Box sx={{ width: 400 }} role="presentation">
-            <DrawerHeader>
-                <span>
-                    <abbr title="Cerrar">
-                        <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                        </IconButton>
-                    </abbr>
-                    Mi carrito
-                    <abbr title="Eleminar carrito">
-                        <IconButton type='button' onClick={() => handleDeleteCart()}>
-                            <Delete color='error' />
-                        </IconButton>
-                    </abbr>
-                </span>
-            </DrawerHeader>
-            <Divider />
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))} */}
-            </List>
-        </Box>
-    )
-}
+  return (
+    <Box sx={{ width: 400 }} role="presentation">
+      <DrawerHeader>
+        <span>
+          <abbr title="Cerrar">
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </abbr>
+          {`Mi carrito (${cartState.totalProducts} productos)`}
+          <abbr title="Eleminar carrito">
+            <IconButton type="button" onClick={() => handleDeleteCart()}>
+              <Delete color="error" />
+            </IconButton>
+          </abbr>
+        </span>
+      </DrawerHeader>
+      <Divider />
+      <List>
+        {cartState.products.map((product) => (
+          // aca puedo hacer un nuevo componente para renderizar esto
+          <div
+            key={product.id}
+            className="flex items-center py-6 px-2 border-b"
+          >
+            <PurchaseProductItem product={product} key={product.id} />
+          </div>
+        ))}
+      </List>
+      <div className="px-4 py-2 font-medium flex justify-between items-center">
+        <span>Subtotal</span>
+        <span className="font-bold">{formatMoney(cartState.subtotalCost)}</span>
+      </div>
+      <Divider />
+      <div className="px-4 mt-2">
+        <button
+          type="button"
+          className="w-full bg-blue-400 hover:bg-blue-700 text-black hover:text-white cursor-pointer py-2 px-4 rounded-md transition-all duration-200 active:scale-90"
+        >
+          Comprar
+        </button>
+      </div>
+    </Box>
+  );
+};
