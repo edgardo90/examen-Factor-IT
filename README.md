@@ -68,3 +68,71 @@ export default tseslint.config([
 ])
 ```
 # examen-Factor-IT
+---
+
+## 🚀 **Tecnologías usadas**
+
+* **React + Vite**
+* **TypeScript**
+* **React Router DOM**
+* **Redux Toolkit** (manejo de estado global)
+* **TailwindCSS** (para la parte deestilos)
+* **Material UI**
+
+---
+
+## ⚙️ **Requisitos previos**
+
+Antes de ejecutar el proyecto, asegurate de tener instalado:
+
+* **Node.js** ( se puede descargar en https://nodejs.org/en/download , para ver version de node es node -v )
+* **npm**(para ver opcion de npm es npm -v)
+* **TypeScript** (opcional, ya viene como dependencia pero podés verificar con `npx tsc --version`)
+
+---
+
+## 🛠️ **Instalación y ejecución**
+
+Cloná el repositorio:
+
+```bash
+git clone https://github.com/edgardo90/examen-Factor-IT.git
+cd examen-Factor-IT
+```
+
+Instalá las dependencias:
+
+```bash
+npm install
+```
+
+Ejecutá el proyecto en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+El proyecto estará disponible en:
+
+```
+http://localhost:5173/
+```
+
+---
+
+## 🔑 **Credenciales de acceso**
+
+Usuario de prueba:
+
+* **Email**: `user@gmail.com`
+* **Password**: `user1234`
+
+
+
+---
+
+## 🌐 **Version Deploy**
+
+
+[**Demo Online**](https://examen-factor-it.vercel.app//)
+
