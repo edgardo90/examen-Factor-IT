@@ -62,6 +62,12 @@ export const CartDrawer: FC<CartDrawerProps> = ({ handleDrawerClose }) => {
       if (cartState.totalProducts === 0) {
         throw new Error("No hay productos seleccionados");
       }
+      const isConfirm = window.confirm("Quieres realizar la compra? (si no se realiza la compra se elemina los productos del carrito")
+      if(!isConfirm){
+        dispatch(SET_CART());
+        setLoading(false)
+        return
+      }
       const user = getUserLocalStorage();
       const purchase: IPurchase = {
         id: user?.purchases ? user?.purchases.length + 1 : 1,
