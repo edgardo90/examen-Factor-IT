@@ -106,7 +106,7 @@ export const LoginForm: FC<LoginFormProps> = ({ setOpen }) => {
                     </button>
                 </div>
             </form>
-            <div className="mt-6 pt-4 text-center text-sm text-gray-600 border-t-2 border-gray-400">
+            {/* <div className="mt-6 pt-4 text-center text-sm text-gray-600 border-t-2 border-gray-400">
                 ¿No tienes una cuenta?{' '}
                 <Link
                     to="/register"
@@ -114,7 +114,7 @@ export const LoginForm: FC<LoginFormProps> = ({ setOpen }) => {
                 >
                     Regístrate aquí
                 </Link>
-            </div>
+            </div> */}
         </div>
     )
 }
