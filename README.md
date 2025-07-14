@@ -86,8 +86,8 @@ export default tseslint.config([
 Antes de ejecutar el proyecto, asegurate de tener instalado:
 
 * **Node.js** ( se puede descargar en https://nodejs.org/en/download , para ver version de node es node -v )
-* **npm**(para ver opcion de npm es npm -v)
-* **TypeScript** (opcional, ya viene como dependencia pero podés verificar con `npx tsc --version`)
+* **npm** (para ver opcion de npm es npm -v)
+* **TypeScript** (ya viene como dependencia pero podés verificar con `npx tsc --version`)
 
 ---
 
