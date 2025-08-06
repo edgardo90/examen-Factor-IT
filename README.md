@@ -122,8 +122,7 @@ http://localhost:5173/
 
 ## 🔑 **Credenciales de acceso**
 
-Usuario de prueba:
-
+USUARIO DE PRUEBA:
 * **Email**: `user@gmail.com`
 * **Password**: `user1234`
 
